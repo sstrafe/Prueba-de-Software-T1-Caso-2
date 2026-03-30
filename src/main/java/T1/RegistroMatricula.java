@@ -10,6 +10,10 @@ public class RegistroMatricula {
     }
 
     public String matricular(String alumnoId, List<Curso> cursos, boolean esNuevo) {
-        return "";
+        int total = cursos.stream().mapToInt(Curso::getCreditos).sum();
+        if (esNuevo && total > 12) {
+            return "Límite de créditos excedido para alumno nuevo";
+        }
+        return "Matrícula exitosa";
     }
 }
