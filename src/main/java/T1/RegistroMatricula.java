@@ -11,8 +11,11 @@ public class RegistroMatricula {
 
     public String matricular(String alumnoId, List<Curso> cursos, boolean esNuevo) {
         int total = cursos.stream().mapToInt(Curso::getCreditos).sum();
-        if (esNuevo && total > 12) {
-            return "Límite de créditos excedido para alumno nuevo";
+        if (esNuevo && total > 12) return "Límite de créditos excedido para alumno nuevo";
+        for (Curso c : cursos) {
+            if (!servicio.tieneVacantes(c.getId())) {
+                return "No hay vacantes disponibles";
+            }
         }
         return "Matrícula exitosa";
     }
